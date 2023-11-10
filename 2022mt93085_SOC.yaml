@@ -1,0 +1,2625 @@
+openapi: 3.0.1
+info:
+  title: Assignment - eCommerce Application Swagger
+  description: |-
+  
+    This Swagger Documentation provides details of all the APIs for Customer, Product, cart and Order
+
+    ## Customer
+      Provides a set of resources to create, update, delete and retrieve customer details
+     
+    ## Product
+      Provides a set of resources to create, update, delete and retrieve product information
+     
+    ## Cart
+       Provides a set of resources to create, update, delete and retrieve cart information
+     
+    ## Order
+       Provides a set of resources to create, update, delete and retrieve orders. It also provides a resource to get the status of an order.
+
+    ## Payment
+       Provides a set of resources to make payment.
+       
+    ## User
+       Provides a set of resources to create and delete users to access customer, product, cart or order resources. 
+  version: 1.0.0
+servers:
+  - url: https://serverurl/api/eCommerceApplication/v1
+security:
+  - default: []
+tags:
+  - name: Customer
+  - name: Product
+  - name: Cart
+  - name: Order
+  - name: Payment
+  - name: User
+paths:
+  /customers:
+    post:
+      tags:
+        - Customer
+      summary: Create customer
+      description: This operation creates a customer with required details.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCustomerRequest'
+        required: true
+      security:
+        - default:
+          - write:customer
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createCustomerResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /customers/{customerId}:
+    get:
+      tags:
+        - Customer
+      summary: Get customer details
+      description: This operation retrieves details of a customer
+      parameters:
+        - name: customerId
+          in: path
+          description: id of customer
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - read:customer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customer'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    patch:
+      tags:
+        - Customer
+      summary: Update customer details
+      description: This operation updates customer details.
+      parameters:
+        - name: customerId
+          in: path
+          description: id of customer
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateCustomerRequest'
+      security:
+        - default:
+          - write:customer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createCustomerResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    delete:
+      tags:
+        - Customer
+      summary: Delete customer
+      description: This operation deletes customer
+      parameters:
+        - name: customerId
+          in: path
+          description: id of customer
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - write:customer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteCustomerSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /customer/{customerId}/orderitems:
+    get:
+      tags:
+        - Customer
+      summary: Get purchased products' details of a customer
+      description: This operation retrieves details of the products purchased by a customer
+      parameters:
+        - name: customerId
+          in: path
+          description: id of customer
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - read:customerProduct
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/purchasedProducts'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /products:
+    post:
+      tags:
+        - Product
+      summary: Create product
+      description: This operation creates a product with required details.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createProductRequest'
+        required: true
+      security:
+        - default:
+          - write:product
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createProductSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    get:
+      tags:
+        - Product
+      summary: Get list of products matching search query
+      description: This operation retrieves all products and their details matching query
+      parameters:
+        - name: productName
+          in: query
+          description: Name of product
+          required: true
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - read:product
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/products'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /products/{productId}:
+    get:
+      tags:
+        - Product
+      summary: Get product details
+      description: This operation retrieves details of a product
+      parameters:
+        - name: productId
+          in: path
+          description: id of product
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - read:product
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /products/{productId}/publish:
+    post:
+      tags:
+        - Product
+      summary: Publish product
+      description: This operation publishes a product
+      parameters:
+        - name: productId
+          in: path
+          description: id of customer
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - publish:product
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/publishSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /product/{productId}:
+    put:
+      tags:
+        - Product
+      summary: Update product details
+      description: This operation updates product details.
+      parameters:
+        - name: productId
+          in: path
+          description: id of product
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateProductRequest'
+      security:
+        - default:
+          - write:product
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    delete:
+      tags:
+        - Product
+      summary: Delete product
+      description: This operation deletes a product
+      parameters:
+        - name: productId
+          in: path
+          description: id of product
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      security:
+        - default:
+          - write:Product
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /carts/customers/{customerId}/cartitems:
+    put:
+      tags:
+        - Cart
+      summary: Create cart
+      description: This operation creates a cart with required details.
+      parameters:
+        - name: customerId
+          in: path
+          description: id of customer
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCartItemRequest'
+        required: true
+      security:
+        - default:
+          - write:cart
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createCartSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /carts/customers/{customerId}/cart:
+    get:
+      tags:
+        - Cart
+      summary: View cart
+      description: This operation retrieves cart with required details.
+      parameters:
+        - name: customerId
+          in: path
+          description: id of customer
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - read:cart
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /carts/customers/{customerId}/cartitems/{cartItemId}:
+    delete:
+      tags:
+        - Cart
+      summary: Delete cart
+      description: This operation deletes a cart
+      parameters:
+        - name: cartItemId
+          in: path
+          description: id of cart item
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+        - name: customerId
+          in: path
+          description: id of customer
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - write:cart
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /orders:
+    post:
+      tags:
+        - Order
+      summary: Submit Order
+      description: This operation submits an order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitOrderRequest'
+        required: true
+      security:
+        - default:
+          - write:cart
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createOrderSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /orders/customers/{customerId}/orders:
+    get:
+      tags:
+        - Order
+      summary: View all orders of a customer
+      description: This operation retrieves details of all orders placed by customer
+      parameters:
+        - name: customerId
+          in: path
+          description: id of customer
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - read:order
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/placedOrders'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /orders/{orderId}/cancel:
+    patch:
+      tags:
+        - Order
+      summary: Cancel an order
+      description: This operation cancels an order
+      parameters:
+        - name: orderId
+          in: path
+          description: id of order
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - write:order
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cancelOrderSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /orders/{orderId}/update:
+    patch:
+      tags:
+        - Order
+      summary: Update an order
+      description: This operation updates an order
+      parameters:
+        - name: orderId
+          in: path
+          description: id of order
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateOrderRequest'
+        required: true
+      security:
+        - default:
+          - write:order
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateOrderSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /payments:
+    post:
+      tags:
+        - Payment
+      summary: Make payment
+      description: This operation makes a payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createPaymentRequest'
+        required: true
+      security:
+        - default:
+          - publish:product
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paymentSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /auth/register:
+    post:
+      tags:
+        - User
+      summary: Register an user
+      description: This operation creates a user with required details.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUserRequest'
+        required: true
+      security:
+        - default:
+          - write:user
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createUserSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /auth/users/{userId}:
+    get:
+      tags:
+        - User
+      summary: Get user details
+      description: This operation retrieves user details
+      parameters:
+        - name: userId
+          in: path
+          description: id of user
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - read:user
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    delete:
+      tags:
+        - User
+      summary: Delete user
+      description: This operation deletes a user
+      parameters:
+        - name: userId
+          in: path
+          description: id of user
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      security:
+        - default:
+          - write:user
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /auth/token:
+    post:
+      tags:
+        - User
+      summary: Bearer token generation for an user
+      description: This operation generates bearer token for user to login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createTokenRequest'
+        required: true
+      security:
+        - default:
+          - write:user
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTokenSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '405':
+          description: Method Not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+components:
+  schemas:
+    customer:
+      required:
+        - customerId
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Unique identifier of a customer
+          format: string
+          example: 'C000001'
+        customerFirstName:
+          type: string
+          description: First name of a customer
+          format: string
+          example: 'Robert'
+        customerLastName:
+          type: string
+          description: Last name of a customer
+          format: string
+          example: 'Piter'
+        customerEmailId:
+          type: string
+          description: Email Id of a customer
+          format: string
+          example: 'robert.pitter@estorecustomer.com'
+        customerContact:
+          type: integer
+          description: Contact customer of a customer
+          format: integer
+          example: '4178563849'
+        customerAddress:
+          type: array
+          items:
+            $ref: '#/components/schemas/existingCustomerAddress'
+      description: Details of the customer
+    createCustomerRequest:
+      type: object
+      properties:
+        customerFirstName:
+          type: string
+          description: First name of a customer
+          format: string
+          example: 'Robert'
+        customerLastName:
+          type: string
+          description: Last name of a customer
+          format: string
+          example: 'Piter'
+        customerEmailId:
+          type: string
+          description: Email Id of a customer
+          format: string
+          example: 'robert.piter@estorecustomer.com'
+        customerContact:
+          type: integer
+          description: Contact customer of a customer
+          format: integer
+          example: '4178563849'
+        customerAddress:
+          type: array
+          items:
+            $ref: '#/components/schemas/customerAddress'
+      description: Details of the customer
+    createCustomerResponse:
+      required:
+        - customerId
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Unique identifier of a customer
+          format: string
+          example: 'C101'
+        customerFirstName:
+          type: string
+          description: First name of a customer
+          format: string
+          example: 'Robert'
+        customerLastName:
+          type: string
+          description: Last name of a customer
+          format: string
+          example: 'Piter'
+        customerEmailId:
+          type: string
+          description: Email Id of a customer
+          format: string
+          example: 'robert.piter@estorecustomer.com'
+        customerContact:
+          type: integer
+          description: Contact customer of a customer
+          format: integer
+          example: '4178563849'
+        customerAddress:
+          type: array
+          items:
+            $ref: '#/components/schemas/customerAddressResponse'
+      description: Details of the customer
+    updateCustomerRequest:
+      type: object
+      properties:
+        customerFirstName:
+          type: string
+          description: First name of a customer
+          format: string
+          example: 'Robert'
+        customerLastName:
+          type: string
+          description: Last name of a customer
+          format: string
+          example: 'Piter'
+        customerEmailId:
+          type: string
+          description: Email Id of a customer
+          format: string
+          example: 'robert.piter@estorecustomer.com'
+        customerContact:
+          type: integer
+          description: Contact customer of a customer
+          format: integer
+          example: '4178563849'
+        customerAddress:
+          type: array
+          items:
+            $ref: '#/components/schemas/existingCustomerAddress'
+      description: Details of the customer
+    customerAddress:
+      type: object
+      properties:
+        house:
+          type: string
+          description: House address of a customer
+          format: string
+          example: '251'
+        lane:
+          type: string
+          description: Lane address of a customer
+          format: string
+          example: 'Lane Number 17'
+        landmark:
+          type: string
+          description: Landmark near address of a customer
+          format: string
+          example: 'Revland Avenue'
+        city:
+          type: string
+          description: City of a customer
+          format: string
+          example: 'San Francisco'
+        state:
+          type: string
+          description: State of a customer
+          format: string
+          example: 'California'
+        pin:
+          type: integer
+          description: Pin code of a customer
+          format: integer
+          example: 94123
+        addressType:
+          type: string
+          description: Address type of a customer
+          format: string
+          example: 'Home'
+      description: Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
+    existingCustomerAddress:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of a customer
+          format: integer
+          example: 1
+        house:
+          type: string
+          description: House address of a customer
+          format: string
+          example: '251'
+        lane:
+          type: string
+          description: Lane address of a customer
+          format: string
+          example: 'Lane Number 17'
+        landmark:
+          type: string
+          description: Landmark near address of a customer
+          format: string
+          example: 'Revland Avenue'
+        city:
+          type: string
+          description: City of a customer
+          format: string
+          example: 'San Francisco'
+        state:
+          type: string
+          description: State of a customer
+          format: string
+          example: 'California'
+        pin:
+          type: integer
+          description: Pin code of a customer
+          format: integer
+          example: 94123
+        addressType:
+          type: string
+          description: Address type of a customer
+          format: string
+          example: 'Home'
+      description: Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
+    customerAddressResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of a customer
+          format: integer
+          example: 1
+        house:
+          type: string
+          description: House address of a customer
+          format: string
+          example: '251'
+        lane:
+          type: string
+          description: Lane address of a customer
+          format: string
+          example: 'Lane Number 17'
+        landmark:
+          type: string
+          description: Landmark near address of a customer
+          format: string
+          example: 'Revland Avenue'
+        city:
+          type: string
+          description: City of a customer
+          format: string
+          example: 'San Francisco'
+        state:
+          type: string
+          description: State of a customer
+          format: string
+          example: 'California'
+        pin:
+          type: integer
+          description: Pin Code of a customer
+          format: integer
+          example: 94123
+        addressType:
+          type: integer
+          description: Addess type of a customer
+          format: integer
+          example: 'Home'
+      description: Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
+    deleteCustomerSuccess:
+      type: object
+      properties:
+        success:
+          type: string
+          description: Unique identifier of the product
+          example: 'true'
+        message:
+          type: string
+          description: Unique identifier of the product
+          example: 'Customer is deleted'
+      description: Successful update status
+    product:
+      type: object
+      properties:
+        productId:
+          type: string
+          description: Unique identifier of the product
+          example: 'P00001'
+        productName:
+          type: string
+          description: Name of the product
+          example: Washing Machine 6Kg
+        status:
+          type: string
+          description: Status of the product
+          enum:
+            - 'draft'
+            - 'published'
+            - 'retired'
+        productPrice:
+          type: number
+          description: Price of the product
+          example: 15000.99
+        createdOn:
+          type: string
+          description: Creation date of the product
+          example: 08/05/2006 03:05:15 PM
+        createdBy:
+          type: string
+          description: User name of the person who created the product
+          example: Jim Churchill
+        updatedBy:
+          type: string
+          description: User name of the person who updated the product
+          example: Tom Lawrence
+        updatedOn:
+          type: string
+          description: Timestamp of update to the product
+          example: 08/05/2006 08:05:15 PM
+        productCategory:
+          type: string
+          description: Category of the product
+          example: Electronics
+        productDescription:
+          type: string
+          description: Category of the product
+          example: Panasonic 6 Kg 5 Star Fully-Automatic Top Load Washing Machine
+      description: Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
+    products:
+      type: object
+      properties:
+        productId:
+          type: string
+          description: Unique identifier of the product
+          example: 'P1'
+        productName:
+          type: string
+          description: Name of the product
+          example: Samsung Washing Machine
+        productPrice:
+          type: number
+          description: Price of the product
+          example: 150.99
+        productCategory:
+          type: string
+          description: Category of the product
+          example: Electronics
+        productDescription:
+          type: string
+          description: Category of the product
+          example: Panasonic 6 Kg 5 Star Fully-Automatic Top Load Washing Machine
+      description: Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
+    createProductRequest:
+      type: object
+      properties:
+        productName:
+          type: string
+          description: Name of the product
+          example: Panasonic Washing Machine 6Kg
+        productPrice:
+          type: number
+          description: Price of the product
+          example: 15000.99
+        productCategory:
+          type: string
+          description: Category of the product
+          example: Electronics
+        productDescription:
+          type: string
+          description: Category of the product
+          example: Panasonic 6 Kg 5 Star Fully-Automatic Top Load Washing Machine
+      description: Request to create a product
+    updateProductRequest:
+      type: object
+      properties:
+        productName:
+          type: string
+          description: Name of the product
+          example: Panasonic Washing Machine 6Kg
+        productPrice:
+          type: number
+          description: Price of the product
+          example: 20000.99
+        productCategory:
+          type: string
+          description: Category of the product
+          example: Electronics
+        productDescription:
+          type: string
+          description: Category of the product
+          example: Panasonic 6 Kg 5 Star Fully-Automatic Top Load Washing Machine
+      description: Request to create a product
+    cart:
+      type: object
+      properties:
+        cartId:
+          type: string
+          description: Unique identifier of a cart
+          example: 'CA12345'
+        customerId:
+          type: string
+          description: Unique identifier of a customer
+          example: 'C101'
+        cartStatus:
+          type: string
+          description: Datatype of characteristic value
+          enum:
+            - 'pending'
+            - 'submitted'
+            - 'retired'
+        cartCreationDate:
+          type: string
+          description: Date on which cart was created
+          example: 08/05/2006 03:05:15 PM
+        cartItems:
+          type: array
+          description: Indicates list of values of tariff information items
+          items:
+            $ref: '#/components/schemas/cartItem'
+        cartTotalPrice:
+          type: number
+          description: Total price of the cart
+          example: 15000.99
+      description: Details of a cart
+    cartItem:
+      type: object
+      properties:
+        cartItemId:
+          type: integer
+          description: Unique identifier of a cart item
+          example: 1
+        cartItemPrice:
+          type: number
+          description: Cart Item Price
+          example: 15000.99
+        cartItemQuantity:
+          type: integer
+          description: Quantity of cart item
+          example: 2
+        cartCreationDate:
+          type: string
+          description: Date on which cart was created
+          example: 08/05/2006 03:05:15 PM
+        productId:
+          type: string
+          description: Unique identifier of the product
+          example: 'P1'
+      description: Details of a cart
+    cartItemResponse:
+      type: object
+      properties:
+        cartItemId:
+          type: integer
+          description: Unique identifier of a cart item
+          example: 1
+        cartItemPrice:
+          type: number
+          description: Cart Item Price
+          example: 15000.99
+        cartItemQuantity:
+          type: integer
+          description: Quantity of cart item
+          example: 2
+        cartItemName:
+          type: string
+          description: name of the product
+          example: Panasonic Washing Machine
+      description: Details of a cart
+    createCartItemRequest:
+      type: object
+      properties:
+        cartItemName:
+          type: string
+          description: name of the product
+          example: Panasonic Washing Machine
+        cartItemPrice:
+          type: number
+          description: Price of the product
+          example: 15000.99
+        cartItemQuantity:
+          type: integer
+          description: Quantity of the cart item
+          example: 2
+        cartCreationDate:
+          type: string
+          description: Date of cart item creation
+          example: 08/05/2023 03:05:15 PM
+      description: Details of a cart
+    placedOrders:
+      type: array
+      items:
+        $ref: '#/components/schemas/order'
+      description: Orders placed by a customer
+    order:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Unique identifier of an order
+          example: O12345
+        customerId:
+          type: string
+          description: Customer Id for the order
+          example: 000001
+        orderStatus:
+          type: string
+          description: Status of the order
+          enum:
+            - 'In Progress'
+            - 'Closed'
+            - 'Cancelled'
+        orderCreationDate:
+          type: string
+          description: Timestamp on which order was created
+          example: 08/05/2006 03:05:15 PM
+        orderClosureDate:
+          type: string
+          description: Timestamp on which order was closed
+          example: 08/05/2006 03:05:15 PM
+        orderAddress:
+          type: string
+          description: Shipping Address of order
+          example: 251,Lane Number 17,Revland Avenue, San Francisco - 94123
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderItemResponse'
+        isProcured:
+          type: boolean
+          description: Item is procured
+          example: false
+        isShipped:
+          type: boolean
+          description: Item is shipped
+          example: false
+        isDelivered:
+          type: boolean
+          description: Item is delivered
+          example: false
+      description: Details of an order
+    submitOrderRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Customer Id for the order
+          example: 'C101'
+        orderStatus:
+          type: string
+          description: Status of the order
+          enum:
+            - 'In Progress'
+            - 'Closed'
+        orderCreationDate:
+          type: string
+          description: Timestamp on which order was created
+          example: 08/05/2006 03:05:15 PM
+        orderClosureDate:
+          type: string
+          description: Timestamp on which order was closed
+          example: 08/05/2006 03:05:15 PM
+        orderAddress:
+          type: string
+          description: Shipping Address of order
+          example: 251,Lane Number 17,Revland Avenue, San Francisco - 94123
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderItem'
+        isProcured:
+          type: boolean
+          description: Item is procured
+          example: false
+        isShipped:
+          type: boolean
+          description: Item is shipped
+          example: false
+        isDelivered:
+          type: boolean
+          description: Item is delivered
+          example: false
+      description: Details of an order
+    orderItem:
+      type: object
+      properties:
+        orderItemQuantity:
+          type: integer
+          description: Quantity of order item
+          example: 2
+        productId:
+          type: string
+          description: Unique identifier of the product
+          example: 'P00001'
+        orderItemName:
+          type: string
+          description: Name of the product
+          example: Washing Machine 6Kg
+      description: Details of an order
+    orderItemResponse:
+      type: object
+      properties:
+        orderItemId:
+          type: string
+          description: Customer Id for the order
+          example: 'C101'
+        orderItemQuantity:
+          type: integer
+          description: Quantity of order item
+          example: 2
+        productId:
+          type: string
+          description: Unique identifier of the product
+          example: 'P00001'
+        orderItemPrice:
+          type: number
+          description: Order Item Price
+          example: 15000.99
+        orderItemName:
+          type: string
+          description: Name of the product
+          example: Washing Machine 6Kg
+      description: Details of an order
+    updateOrderRequest:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Unique identifier of an order
+          example: 'O12345'
+        customerId:
+          type: string
+          description: Customer Id for the order
+          example: 'C101'
+        orderStatus:
+          type: string
+          description: Status of the order
+          enum:
+            - 'In Progress'
+            - 'Closed'
+        orderCreationDate:
+          type: string
+          description: Timestamp on which order was created
+          example: 08/05/2006 03:05:15 PM
+        orderClosureDate:
+          type: string
+          description: Timestamp on which order was closed
+          example: 08/05/2006 03:05:15 PM
+        orderAddress:
+          type: string
+          description: Timestamp on which order was closed
+          example: '251, Lane Number 17, Revland Avenue, San Francisco - 94123'
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderItemResponse'
+        isProcured:
+          type: boolean
+          description: Item is procured
+          example: false
+        isShipped:
+          type: boolean
+          description: Item is shipped
+          example: false
+        isDelivered:
+          type: boolean
+          description: Item is delivered
+          example: false
+      description: Details of an order
+    user:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of a related entity.
+          example: 'U123'
+        name:
+          type: string
+          description: User name of the user
+          example: 'johnSmith'
+        password:
+          type: string
+          description: password of the user
+          example: 'qwerty@123'
+        email:
+          type: string
+          description: email of the user
+          example: 'john.smith@gmail.com'
+        role:
+          type: string
+          description: role of user
+          enum:
+            - 'customerUser'
+            - 'productUser'
+            - 'cartUser'
+            - 'orderUser'
+      description: Details of a user
+    createUserRequest:
+      required:
+        - id
+      type: object
+      properties:
+        name:
+          type: string
+          description: User name of the user
+          example: 'johnSmith'
+        password:
+          type: string
+          description: password of the user
+          example: 'qwerty@123'
+        email:
+          type: string
+          description: email of the user
+          example: 'john.smith@gmail.com'
+        role:
+          type: string
+          description: role of user
+          enum:
+            - 'customerUser'
+            - 'productUser'
+            - 'cartUser'
+            - 'orderUser'
+      description: Details of a user
+    createTokenRequest:
+      required:
+        - id
+      type: object
+      properties:
+        username:
+          type: string
+          description: User name of the user
+          example: 'johnSmith'
+        password:
+          type: string
+          description: password of the user
+          example: 'qwerty@123'
+      description: Details of a user
+    purchasedProducts:
+      type: array
+      items:
+        $ref: '#/components/schemas/purchasedProduct'
+      description: Details of a product purchased by a customer
+    purchasedProduct:
+      type: object
+      properties:
+        orderItemId:
+          type: integer
+          description: Customer Id for the order
+          example: 129
+        orderItemQuantity:
+          type: integer
+          description: Datatype of characteristic value
+          example: 2
+        productId:
+          type: string
+          description: Unique identifier of the product
+          example: 'P00001'
+        orderId:
+          type: string
+          description: Unique identifier of the order
+          example: 'O00001'
+        orderItemPrice:
+          type: number
+          description: Order Item Price
+          example: 15000.99
+        orderItemName:
+          type: string
+          description: Name of the product
+          example: Washing Machine 6Kg
+        purchasedOn:
+          type: string
+          description: Creation date of the product
+          example: 08/05/2006 03:05:15 PM
+      description: Details of a product purchased by a customer
+    createCartSuccess:
+      type: object
+      properties:
+        cartId:
+          type: string
+          description: Identifier of the cart
+          example: CA101
+        customerId:
+          type: number
+          description: Identifier of the customer
+          example: C101
+        cartStatus:
+          type: string
+          description: Datatype of characteristic value
+          enum:
+            - 'pending'
+            - 'submitted'
+            - 'retired'
+        cartCreationDate:
+          type: string
+          description: Date of cart item creation
+          example: 08/05/2023 03:05:15 PM
+        cartItems:
+          type: array
+          description: Indicates list of values of tariff information items
+          items:
+            $ref: '#/components/schemas/cartItemResponse'
+      description: Successful create status
+    createOrderSuccess:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Unique identifier of an order
+          example: O12345
+        customerId:
+          type: string
+          description: Customer Id for the order
+          example: 000001
+        orderStatus:
+          type: string
+          description: Status of the order
+          enum:
+            - 'In Progress'
+            - 'Closed'
+        orderCreationDate:
+          type: string
+          description: Timestamp on which order was created
+          example: 08/05/2006 03:05:15 PM
+        orderClosureDate:
+          type: string
+          description: Timestamp on which order was closed
+          example: 08/05/2006 03:05:15 PM
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderItemResponse'
+        isProcured:
+          type: boolean
+          description: Item is procured
+          example: false
+        isShipped:
+          type: boolean
+          description: Item is shipped
+          example: false
+        isDelivered:
+          type: boolean
+          description: Item is delivered
+          example: false
+      description: Successful create status
+    createProductSuccess:
+      type: object
+      properties:
+        productId:
+          type: string
+          description: Unique identifier of the product
+          example: 'P000001'
+        productName:
+          type: string
+          description: Name of the product
+          example: Panasonic Washing Machine 6Kg
+        productPrice:
+          type: number
+          description: Price of the product
+          example: 15000.99
+        productCategory:
+          type: string
+          description: Category of the product
+          example: Electronics
+        productDescription:
+          type: string
+          description: Category of the product
+          example: Panasonic 6 Kg 5 Star Fully-Automatic Top Load Washing Machine
+      description: Successful create status
+    createPaymentRequest:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Unique identifier of the order
+          example: 'O1'
+        paymentMethod:
+          type: string
+          description: Payment method used by customer
+          example: 'credit_card'
+        amountToPay:
+          type: number
+          description: Payment amount
+          example: 37.97
+        cardNumber:
+          type: string
+          description: Card number
+          example: '**** **** **** 1234'
+        expiryMonth:
+          type: integer
+          description: Expiry month on the card
+          example: 12
+        expiryYear:
+          type: integer
+          description: Expiry year on the card
+          example: 2027
+        cvv:
+          type: integer
+          description: cvv of card
+          example: 276
+      description: Successful create status
+    paymentSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Payment method used by customer
+          example: 'paid'
+        orderId:
+          type: string
+          description: Unique identifier of the order
+          example: 'O1'
+        paymentMethod:
+          type: string
+          description: Payment method used by customer
+          example: 'credit_card'
+        amountToPay:
+          type: number
+          description: Payment amount
+          example: 37.97
+      description: Successful publish
+    createUserSuccess:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Unique identifier of the user
+          example: 'U123'
+        message:
+          type: string
+          example: 'user added to the system'
+      description: Successful create status
+    createTokenSuccess:
+      type: object
+      properties:
+        token:
+          type: string
+          description: token generated for the user
+          example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTdW1pdCBEZXNobXVraCIsImlhdCI6MTY5OTEyMTEyOSwiZXhwIjoxNjk5MTIyOTI5fQ.gu8mKF0zbYOsr_jqAx_Z4R3C4FMaZ5uAIUv6QVh7IPY'
+      description: Successful create status
+    updateSuccess:
+      type: object
+      properties:
+        update:
+          type: string
+          description: Unique identifier of the product
+          example: 'success'
+      description: Successful update status
+    deleteSuccess:
+      type: object
+      properties:
+        delete:
+          type: string
+          description: Unique identifier of the product
+          example: 'success'
+      description: Successful update status
+    publishSuccess:
+      type: object
+      properties:
+        publish:
+          type: string
+          description: Unique identifier of the product
+          example: 'success'
+      description: Successful publish
+    updateOrderSuccess:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Unique identifier of an order
+          example: O12345
+        customerId:
+          type: string
+          description: Customer Id for the order
+          example: 000001
+        orderStatus:
+          type: string
+          description: Status of the order
+          enum:
+            - 'In Progress'
+            - 'Closed'
+        orderCreationDate:
+          type: string
+          description: Timestamp on which order was created
+          example: 08/05/2006 03:05:15 PM
+        orderClosureDate:
+          type: string
+          description: Timestamp on which order was closed
+          example: 08/05/2006 03:05:15 PM
+        orderAddress:
+          type: string
+          description: Timestamp on which order was closed
+          example: '251, Lane Number 17, Revland Avenue, San Francisco - 94123'
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderItemResponse'
+        isProcured:
+          type: boolean
+          description: Item is procured
+          example: false
+        isShipped:
+          type: boolean
+          description: Item is shipped
+          example: false
+        isDelivered:
+          type: boolean
+          description: Item is delivered
+          example: false
+      description: Successful submit
+    cancelOrderSuccess:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Unique identifier of an order
+          example: O12345
+        customerId:
+          type: string
+          description: Customer Id for the order
+          example: 000001
+        orderStatus:
+          type: string
+          description: Status of the order
+          example: 'Cancelled'
+        orderCreationDate:
+          type: string
+          description: Timestamp on which order was created
+          example: 08/05/2006 03:05:15 PM
+        orderClosureDate:
+          type: string
+          description: Timestamp on which order was closed
+          example: 08/05/2006 03:05:15 PM
+        orderAddress:
+          type: string
+          description: Timestamp on which order was closed
+          example: '251, Lane Number 17, Revland Avenue, San Francisco - 94123'
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderItemResponse'
+        isProcured:
+          type: boolean
+          description: Item is procured
+          example: false
+        isShipped:
+          type: boolean
+          description: Item is shipped
+          example: false
+        isDelivered:
+          type: boolean
+          description: Item is delivered
+          example: false
+      description: Successful submit
+    error:
+      required:
+        - code
+        - message
+        - reason
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description: Explanation of the reason for the error which can be shown to a client user.
+        message:
+          type: string
+          description: More details and corrective actions related to the error which can be shown to a client user.
+      description: Used when an API throws an error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://eCommerceApplication.swagger.io/oauth/authorize
+          scopes:
+            read:customer: read customer detail
+            write:customer: create customer
+            read:customerOrder: read customer order
+            read:customerProduct: read customer product
+            read:product: read product detail
+            write:product: create product
+            read:order: read order detail
+            write:order: create order
+            read:cart: read cart detail
+            write:cart: create cart
+            publish:product: publish products
+            write:user: create user
+            read:user: read user detail
