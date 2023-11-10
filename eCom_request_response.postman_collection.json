@@ -1,0 +1,575 @@
+{
+	"info": {
+		"_postman_id": "94751f41-c184-4196-a900-f27e5731cd58",
+		"name": "eCom_request_response",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register an user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"robertSmith\",\r\n  \"password\": \"qwerty@123\",\r\n  \"email\": \"robert.smith@gmail.com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9191/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"robertSmith\",\r\n  \"password\": \"qwerty@123\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9191/auth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"auth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create customer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ2ODg0NywiZXhwIjoxNjk5NDcwNjQ3fQ.0e6aU1mjVsSII6aEJmqB4u2KxBeJfvWapWXHHu8zCgo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerFirstName\": \"Robert\",\r\n  \"customerLastName\": \"Smith\",\r\n  \"customerEmailId\": \"robert.smith@estorecustomer.com\",\r\n  \"customerContact\": 4178563849,\r\n  \"customerAddress\": [\r\n    {\r\n      \"house\": \"251\",\r\n      \"lane\": \"Lane Number 17\",\r\n      \"landmark\": \"Revland Avenue\",\r\n      \"city\": \"San Francisco\",\r\n      \"state\": \"California\",\r\n      \"pin\": 94123,\r\n      \"addressType\": \"Home\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9191/customers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"customers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " Get customer details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ2ODg0NywiZXhwIjoxNjk5NDcwNjQ3fQ.0e6aU1mjVsSII6aEJmqB4u2KxBeJfvWapWXHHu8zCgo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/atom+xml",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9191/customers/C102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"customers",
+						"C102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update customer details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ2ODg0NywiZXhwIjoxNjk5NDcwNjQ3fQ.0e6aU1mjVsSII6aEJmqB4u2KxBeJfvWapWXHHu8zCgo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\": \"C102\",\r\n    \"customerFirstName\": \"Robert\",\r\n    \"customerLastName\": \"Smith\",\r\n    \"customerEmailId\": \"robert.smith@estorecustomer.com\",\r\n    \"customerContact\": 9835674536,\r\n    \"customerAddress\": [\r\n        {\r\n            \"id\": 97,\r\n            \"house\": \"251\",\r\n            \"lane\": \"Lane Number 17\",\r\n            \"landmark\": \"Revland Avenue\",\r\n            \"city\": \"San Francisco\",\r\n            \"state\": \"California\",\r\n            \"pin\": 94123,\r\n            \"addressType\": \"Home\"\r\n        },\r\n        {\r\n            \"house\": \"Plot No.20\",\r\n            \"lane\": \"D.P road\",\r\n            \"landmark\": \"Infotech park\",\r\n            \"city\": \"Pune\",\r\n            \"state\": \"Maharashtra\",\r\n            \"pin\": 411057,\r\n            \"addressType\": \"Office\"\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9191/customers/C102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"customers",
+						"C102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete customer details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3MDg1MCwiZXhwIjoxNjk5NDcyNjUwfQ.F3vYf6S05EiKKJt-T4why1JGUXlezUpywQ7xIEHxUmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9191/customers/C103",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"customers",
+						"C103"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3MDg1MCwiZXhwIjoxNjk5NDcyNjUwfQ.F3vYf6S05EiKKJt-T4why1JGUXlezUpywQ7xIEHxUmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productName\": \"Panasonic Washing Machine 6Kg\",\r\n  \"productPrice\": 15000.99,\r\n  \"productCategory\": \"Electronics\",\r\n  \"productDescription\": \"Panasonic 6 Kg 5 Star Fully-Automatic Top Load Washing Machine\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9191/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3MDg1MCwiZXhwIjoxNjk5NDcyNjUwfQ.F3vYf6S05EiKKJt-T4why1JGUXlezUpywQ7xIEHxUmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9191/products?productName=Washing%20Machine",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "productName",
+							"value": "Washing%20Machine"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add to cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3MDg1MCwiZXhwIjoxNjk5NDcyNjUwfQ.F3vYf6S05EiKKJt-T4why1JGUXlezUpywQ7xIEHxUmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cartItemName\": \"Panasonic Washing Machine\",\r\n  \"cartItemPrice\": 15000.99,\r\n  \"cartItemQuantity\": 1,\r\n  \"cartCreationDate\": \"08/11/2023 03:05:15 PM\",\r\n  \"productId\":\"P5\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9191/carts/customers/C102/cartitems",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"carts",
+						"customers",
+						"C102",
+						"cartitems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove from cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3MDg1MCwiZXhwIjoxNjk5NDcyNjUwfQ.F3vYf6S05EiKKJt-T4why1JGUXlezUpywQ7xIEHxUmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9191/carts/customers/C102/cartitems/35",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"carts",
+						"customers",
+						"C102",
+						"cartitems",
+						"35"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3MDg1MCwiZXhwIjoxNjk5NDcyNjUwfQ.F3vYf6S05EiKKJt-T4why1JGUXlezUpywQ7xIEHxUmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9191/carts/customers/C102/cart",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"carts",
+						"customers",
+						"C102",
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit an order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3MDg1MCwiZXhwIjoxNjk5NDcyNjUwfQ.F3vYf6S05EiKKJt-T4why1JGUXlezUpywQ7xIEHxUmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerId\": \"C102\",\r\n  \"orderStatus\": \"In Progress\",\r\n  \"orderCreationDate\": \"08/11/2006 04:05:15 PM\",\r\n  \"orderClosureDate\": \"\",\r\n  \"orderAddress\": \"251,Lane Number 17,Revland Avenue, San Francisco - 94123\",\r\n  \"orderItems\": [\r\n    {\r\n      \"orderItemQuantity\": 1,\r\n      \"productId\": \"P5\",\r\n      \"orderItemName\": \"Panasonic Washing Machine\"\r\n    },\r\n\t{\r\n      \"orderItemQuantity\": 1,\r\n      \"productId\": \"P7\",\r\n      \"orderItemName\": \"Samsung Refridgerator\"\r\n    }\r\n  ],\r\n  \"isProcured\": false,\r\n  \"isShipped\": false,\r\n  \"isDelivered\": false\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9191/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View all orders of a customer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3MDg1MCwiZXhwIjoxNjk5NDcyNjUwfQ.F3vYf6S05EiKKJt-T4why1JGUXlezUpywQ7xIEHxUmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9191/orders/customers/C102/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"orders",
+						"customers",
+						"C102",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3Mjc5MSwiZXhwIjoxNjk5NDc0NTkxfQ.6MAbg78xQxO-9Clt-JOkJvjl5qmYi6LaN7rVymhv3Tg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"orderId\": \"O2\",\r\n  \"customerId\": \"C102\",\r\n  \"orderStatus\": \"In Progress\",\r\n  \"orderCreationDate\": \"08/11/2006 04:05:15 PM\",\r\n  \"orderClosureDate\": \"\",\r\n  \"orderAddress\": \"320, Lane Number 54, Revland Avenue, San Francisco - 94123\",\r\n  \"orderItems\": [\r\n    {\r\n      \"orderItemQuantity\": 1,\r\n      \"productId\": \"P5\",\r\n      \"orderItemPrice\": 14000.0,\r\n      \"orderItemName\": \"Panasonic Washing Machine\"\r\n    },\r\n\t{\r\n      \"orderItemQuantity\": 1,\r\n      \"productId\": \"P7\",\r\n       \"orderItemPrice\": 20000.0,\r\n       \"orderItemName\": \"Samsung Refridgerator\"\r\n    }\r\n  ],\r\n  \"isProcured\": false,\r\n  \"isShipped\": true,\r\n  \"isDelivered\": false\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9191/orders/O2/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"orders",
+						"O2",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancle an order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2JlcnRTbWl0aCIsImlhdCI6MTY5OTQ3Mjc5MSwiZXhwIjoxNjk5NDc0NTkxfQ.6MAbg78xQxO-9Clt-JOkJvjl5qmYi6LaN7rVymhv3Tg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9191/orders/O2/cancle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"orders",
+						"O2",
+						"cancle"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
